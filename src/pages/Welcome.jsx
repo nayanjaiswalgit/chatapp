@@ -1,5 +1,5 @@
 import React from "react";
-import chatgit from "../img/chat.gif"
+
 import { NavLink } from "react-router-dom";
 import logo from "../img/logo.png"
 const Welcome = () => {

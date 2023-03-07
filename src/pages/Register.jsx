@@ -1,15 +1,47 @@
 import React, { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { NavLink, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
-import { auth, storage,db } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { auth, storage, db } from "../firebase";
 import addavatar from "../img/addavatar.png";
 import google from ".././img/Google.png";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore";
 
 function Register() {
+  const provider = new GoogleAuthProvider();
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
+
+  const singwithgoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+    
+
+      await setDoc(doc(db, "user", result.user.uid), {
+        uid: result.user.uid,
+        displayName: result.user.displayName,
+        email: result.user.email,
+        photoURL: result.user.photoURL,
+        LastLoginTime : result.user.metadata.lastSignInTime
+      });
+
+
+      await setDoc(doc(db, "userChats", result.user.uid), {});
+      navigate("/home");
+
+
+    } 
+    catch (error) {
+
+      setErr(true);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const displayName = event.target[0].value;
@@ -19,35 +51,31 @@ function Register() {
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
 
       const storageRef = ref(storage, displayName);
 
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on('state_changed',
+      uploadTask.on(
+        "state_changed",
         (error) => {
           setErr(true);
         },
         () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-
-            await updateProfile(res.user,{
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateProfile(res.user, {
               displayName,
-              photoURL:downloadURL
-            })
+              photoURL: downloadURL,
+            });
             await setDoc(doc(db, "user", res.user.uid), {
-              uid : res.user.uid,
+              uid: res.user.uid,
               displayName,
               email,
               photoURL: downloadURL,
             });
 
-            await setDoc(doc(db, "userChats", res.user.uid), {
-            
-            });
+            await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/home");
-
           });
         }
       );
@@ -81,8 +109,10 @@ function Register() {
           Sign up
         </button>
       </form>
-      <button className="p-1.5 mb-3 rounded-md flex text-sm justify-center gap-3 w-full  border-2 hover:bg-slate-100">
-        {" "}
+      <button
+        onClick={singwithgoogle}
+        className="p-1.5 mb-3 rounded-md flex text-sm justify-center gap-3 w-full  border-2 hover:bg-slate-100"
+      >
         <img src={google} alt="loginwithgoogle" className="w-5 block" /> Sign Up
         With Google
       </button>
