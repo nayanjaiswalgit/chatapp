@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import user from "../img/user.jpg";
+
 import { GoPrimitiveDot } from "react-icons/go";
 import { IoMdCall } from "react-icons/io";
 import { IoIosVideocam } from "react-icons/io";
@@ -9,7 +9,12 @@ import { ChatContext } from '../context/ChatContest';
 function Mainnav() {
 
   const {data} = useContext(ChatContext);
-  console.log(data);
+  if(Object.keys( data.user).length === 0){
+    return (<div className=" w-full lg:mx-0 md:mx-0 ">
+       <div className="lg:h-14 h-16  w-full text-white  border-l-2 rounded-md  lg:rounded-none md:rounded-none border-violet-700 bg-violet-800 flex justify-around  lg:pl-5 lg:pr-5 items-center relative text-4xl ">Welcome Back</div>
+    </div>)
+  }
+   
   return (
     <div className="   w-full lg:mx-0 md:mx-0  ">
       <div className="lg:hidden p-2 bg-[url('.././src/img/chat.gif')] bg-cover bg-white ">
@@ -26,7 +31,7 @@ function Mainnav() {
         <div className="-mt-1">
           <h2 className="text-xl leading-7 text-white font-Tilefont ">{data.user.displayName}</h2>
           <div className="flex">
-            <GoPrimitiveDot className="text-green-500" />
+            <GoPrimitiveDot className="text-green-500"  />
             <p className="text-white opacity-90 text-xs font-light text-center">Online
             </p>
           </div>

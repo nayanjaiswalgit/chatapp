@@ -1,13 +1,16 @@
 import Mainnav from "./Mainnav";
-import Mainsearch from "./Mainsearch";
+import SendInput from "./SendInput";
 import Message from "./Message";
 
+
 function Chat() {
+
+
   return (
     <div className="w-full h-full relative flex flex-col">
     <Mainnav/>
     <Message></Message>
-    <Mainsearch/>
+    <SendInput/>
     </div>
   );
 }

@@ -13,7 +13,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import Chats from "./Chats";
+
 
 import { AuthContext } from "../context/AuthContext";
 function Search() {
@@ -24,14 +24,10 @@ function Search() {
 
   const { currentUser } = useContext(AuthContext);
 
-  const changeHandler = () => {
-    setshow((prevstate) => {
-      return !prevstate;
-    });
-  };
+
 
   const handleSearch = async () => {
-    console.log("hello");
+   
     const q = query(
       collection(db, "user"),
       where("displayName", "==", username)
@@ -48,8 +44,9 @@ function Search() {
   };
 
   const handleKey = (event) => {
+     
     event.code === "Enter" && handleSearch();
-    event.code === "Enter" && changeHandler();
+   
   };
 
   const handleSelect = async () => {
@@ -62,7 +59,7 @@ function Search() {
         : user.uid + currentUser.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-      console.log("setres")
+     
       if (!res.exists()) {
         await setDoc(doc (db, "chats", combinedId), { messages: [] });
         
@@ -89,7 +86,7 @@ function Search() {
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
-        console.log("updateDoc")
+       
         
 
         await updateDoc(doc(db, "userChats", user.uid), {
@@ -122,14 +119,17 @@ function Search() {
         <input
           type="text"
           className="w-full px-4 py-1 border-b-4  border-blue-200 m-auto rounded placeholder:italic  "
-          placeholder="Search or start a new chat  "
+          placeholder="Search User  "
           onKeyDown={handleKey}
           value ={username}
           onChange={(event) => setUsername(event.target.value)}
+          onFocus = {()=> setshow(false)}
+          onBlur= {()=> setshow(true)}
+          
         />
-        <button onClick = {changeHandler}   className="absolute right-7 top-5  " >
+        <button    className="absolute right-7 top-5  " >
           {show && <FcSearch  onClick={handleSearch} className="text-2xl" />}
-          {!show && <RxCross2 onClick={()=> {setUser(null) ; setUsername("")} } className="text-2xl" />}
+          {!show && <RxCross2 onClick={()=> {setUser(null) ; setUsername("") ; setshow(true)} } className="text-2xl" />}
         </button>
       </div>
 

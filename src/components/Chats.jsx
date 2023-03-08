@@ -54,7 +54,7 @@ const handleSelect = (extaindchat) => {
            { chat[1].lastMesaage?.text}
           </p>
           <div className=" absolute  top-2   right-3 bg-green-500 w-5 h-5 rounded-full flex items-center justify-center drop-shadow-lg">
-            <p className="font-Tilefont text-white  text-sm text-bolder drop-shadow-lg">5</p>
+            {/* <p className="font-Tilefont text-white  text-sm text-bolder drop-shadow-lg">5</p> */}
             
           </div>
           <p className="absolute right-3 bottom-2 text-white  opacity-90 text-xs text-bolder">00:12</p>

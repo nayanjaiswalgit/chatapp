@@ -5,7 +5,7 @@ import { ChatContext } from "../context/ChatContest";
 import { db } from "../firebase";
 import Recivedmessage from "./Recivedmessage";
 import Sendmessage from "./Sendmessage";
-
+import NoChat from "../img/NoChat.png";
 
 
 function Message() {
@@ -14,7 +14,7 @@ function Message() {
   const {data}=useContext(ChatContext);
   const [messages, SetMesaages] = useState([]);
   
-  useEffect(()=>{
+  const fetchchat = () => {
     const unSub = onSnapshot(doc(db,"chats",data.chatId),(doc)=>{
       doc.exists() && SetMesaages(doc.data().message)
     })
@@ -22,19 +22,42 @@ function Message() {
       unSub();
     }
 
+  }
+  useEffect(()=>{
+  try{
+    fetchchat();
+  }
+  catch (err){
+    console.log("error" , err);
+  }
  },[data.chatId] )
-  console.log("messages " + messages)
-  
-  const show = messages.map((m)=>(
-   (m.senderId === currentUser.uid)?( <Sendmessage message={m} key={m.id}/>
-  ):( <Recivedmessage message={m} key={m.id}/>)
-  
+
+
+ const show = !messages ? (<div className="  bg-white w-full h-[100%] flex justify-center items-center flex-col ">
+  <img src={NoChat} alt="NoChat" className="w-40" />
+  <h1 className=" text-center text-violet-900 text-2xl">No Conversation yet</h1>
+ 
+
+ </div>): ( messages.map((m)=>(
+  (m.senderId === currentUser.uid)?( <Sendmessage message={m} key={m.id}/>
+ ):( <Recivedmessage message={m} key={m.id}/>)
+))); 
+
+
 
  
 
-))
 
 
+
+    if(Object.keys( data.user).length === 0){
+    return (<div className="   w-full h-full lg:mx-0 md:mx-0   bg-white">
+    <div className=' h-[80%] pb-4 w-full bg-[url(".././src/img/thank-you.gif")] bg-containt overflow-auto    scrollbar-thin scrollbar-thumb-violet-800  scrollbar-track-violet-100 '>
+   
+    </div> 
+    
+   </div>)
+  }
   return (
     <div className=' h-[80%] pb-4 w-full bg-[url(".././src/img/chat.png")] bg-cover overflow-auto    scrollbar-thin scrollbar-thumb-violet-800  scrollbar-track-violet-100 '>
     

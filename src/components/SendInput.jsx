@@ -9,7 +9,7 @@ import {v4 as uuid} from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase";
 
-function Mainsearch() {
+function SendInput() {
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const {currentUser} = useContext(AuthContext);
@@ -75,9 +75,12 @@ else {
   setImg(null);
 };
 
-
+if(Object.keys( data.user).length === 0){
+  return (<div ></div>)
+}
 
   return (
+
     <div className="  w-full lg:h-12  h-16  bottom-0 absolute  border-grey-300   bg-white  ">
         <div className="flex items-center justify-evenly h-full ">
         <input type='file' id="attachment" name="attachment" className="hidden"  onChange={event=>setImg(event.target.files[0])}/>
@@ -102,4 +105,4 @@ else {
   );
 }
 
-export default Mainsearch;
+export default SendInput;

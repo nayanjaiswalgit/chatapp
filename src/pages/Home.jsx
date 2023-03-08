@@ -9,7 +9,7 @@ function Home(props) {
       <Chat  ></Chat>
     </div>
      <div className=' flex  lg:hidden md:hidden w-full h-full  overflow-hidden  '>
-     <Chat  ></Chat>
+     <Sidebar></Sidebar>
  {/*hidden lg:block md:block*/ }
      </div>
      </>
