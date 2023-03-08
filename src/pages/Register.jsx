@@ -10,7 +10,7 @@ import {
 import { auth, storage, db } from "../firebase";
 import addavatar from "../img/addavatar.png";
 import google from ".././img/Google.png";
-import { doc, setDoc } from "firebase/firestore";
+import {  doc, getDoc, setDoc } from "firebase/firestore";
 
 function Register() {
   const provider = new GoogleAuthProvider();
@@ -22,16 +22,27 @@ function Register() {
       const result = await signInWithPopup(auth, provider);
     
 
-      await setDoc(doc(db, "user", result.user.uid), {
-        uid: result.user.uid,
-        displayName: result.user.displayName,
-        email: result.user.email,
-        photoURL: result.user.photoURL,
-        LastLoginTime : result.user.metadata.lastSignInTime
-      });
 
+      const docRef = doc(db, "user", result.user.uid);
+      const docSnap = await getDoc(docRef);
+    
+     
+      if (!docSnap.exists()) {
+        await setDoc(doc(db, "user", result.user.uid), {
+          uid: result.user.uid,
+          displayName: result.user.displayName,
+          email: result.user.email,
+          photoURL: result.user.photoURL,
+          LastLoginTime : result.user.metadata.lastSignInTime
+        });
+  
+  
+       await setDoc(doc(db, "userChats", result.user.uid), {});
+      } 
+        
+   
 
-      await setDoc(doc(db, "userChats", result.user.uid), {});
+      
       navigate("/home");
 
 
@@ -50,6 +61,7 @@ function Register() {
     const file = event.target[3].files[0];
 
     try {
+
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
       const storageRef = ref(storage, displayName);
