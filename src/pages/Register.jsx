@@ -97,7 +97,7 @@ function Register() {
   };
 
   return (
-    <div className="py-8 px-16 lg:w-[30%] rounded-md bg-white  font-mulish ">
+    <div className="py-8 px-10 lg:w-[30%] rounded-md bg-white  font-mulish ">
       <h2 className="text-center text-2xl font-bold text-violet-900">
         Chit Chat
       </h2>

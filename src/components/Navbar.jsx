@@ -4,7 +4,7 @@ import {auth} from '../firebase'
 import { AuthContext } from '../context/AuthContext'
 function Navbar() {
   const {currentUser} = useContext(AuthContext);
-  console.log(currentUser)
+
   return (
     <div className="h-12  w-full text-white  bg-violet-800 flex justify-around items-center relative" >
       <span className=' absolute -top-14 -left-5 text-slate-100 text-bold text-4xl' >Chit Chat</span>

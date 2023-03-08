@@ -9,6 +9,8 @@ import {v4 as uuid} from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase";
 
+
+
 function SendInput() {
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
@@ -16,6 +18,9 @@ function SendInput() {
   const {data} = useContext(ChatContext);
 
   const handleSend = async () => {
+    if(text === ""){
+      return
+    }
 if(img){
   const storageRef = ref(storage, uuid);
 
@@ -45,7 +50,9 @@ if(img){
 
 }
 else {
-  
+
+
+
   await updateDoc(doc(db,"chats",data.chatId),{
     message : arrayUnion({
       id:uuid(),
@@ -76,12 +83,12 @@ else {
 };
 
 if(Object.keys( data.user).length === 0){
-  return (<div ></div>)
+  return (<div className="text-white text-2xl text-center pb-2">{currentUser.displayName}</div>)
 }
 
   return (
 
-    <div className="  w-full lg:h-12  h-16  bottom-0 absolute  border-grey-300   bg-white  ">
+    <div className="  w-full lg:h-14  h-16  pb-2 p-1 border-grey-300 border-t-4 border-violet-400  bg-white  ">
         <div className="flex items-center justify-evenly h-full ">
         <input type='file' id="attachment" name="attachment" className="hidden"  onChange={event=>setImg(event.target.files[0])}/>
         <label htmlFor="attachment"  className="hover:scale-105">  <IoMdAttach className="lg:text-2xl text-3xl" /></label>
@@ -97,7 +104,7 @@ if(Object.keys( data.user).length === 0){
         />
 
          
-        <div onClick={handleSend} className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-green-500 hover:scale-105 text-white flex items-center justify-center">
+        <div onClick={ handleSend } className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-green-500 hover:scale-105 text-white flex items-center justify-center">
           <IoIosSend className="lg:text-xl text-3xl " />
         </div>
       </div>

@@ -72,6 +72,10 @@ function Login() {
 
     await signInWithEmailAndPassword(auth, email, password);
     navigate("/home")
+
+
+   
+
   } catch (err) {
     setErr(true);
   

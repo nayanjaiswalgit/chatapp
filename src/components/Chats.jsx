@@ -5,7 +5,8 @@ import { ChatContext } from "../context/ChatContest";
 import { db } from "../firebase";
 
 
-function Chats() {
+function Chats(props) {
+
   const [chats, setChats] = useState([]);
   
   const {currentUser} = useContext(AuthContext);
@@ -26,6 +27,7 @@ function Chats() {
   useEffect(  ()=>{
     try{
       fatchdata();
+  
     }
     catch(err) {
 console.log("error"+ err);
@@ -34,11 +36,15 @@ console.log("error"+ err);
   },[currentUser.uid])
 
 const handleSelect = (extaindchat) => {
+  if(props.showchat){
+    props.setshowchat(false);
+  }
+ 
   dispatch({type:"CHANGE_USER", payload:extaindchat})
-
   
+ 
 }
-
+ 
   return (
    
     <div className=" overflow-y-auto h-[100%] border-r-4 border-violet-600 p-1">
@@ -57,7 +63,16 @@ const handleSelect = (extaindchat) => {
             {/* <p className="font-Tilefont text-white  text-sm text-bolder drop-shadow-lg">5</p> */}
             
           </div>
-          <p className="absolute right-3 bottom-2 text-white  opacity-90 text-xs text-bolder">00:12</p>
+         
+          <p className="absolute right-3 bottom-2 text-white  opacity-90 text-xs text-bolder"> {
+ new Date(chat[1].date*1000).toLocaleTimeString(navigator.language, {
+    hour: '2-digit',
+    minute:'2-digit'
+  })
+ 
+
+
+          }</p>
         </div>
       </div>))
 

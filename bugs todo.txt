@@ -1,0 +1,5 @@
+8/03/2022
+-register page from padding from sm devices
+-sing in page wrong error showing
+-not redirect at chat section on mobile
+-sent button work even input box in empty
