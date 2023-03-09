@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: { 
-      'Tilefont': 'Tilt Neon',
+      'Tilefont': 'Noto Sans',
         },
     extend: {
       

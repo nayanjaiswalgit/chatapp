@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Feedback from "./pages/Feedback";
 import "./App.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Welcome from "./pages/Welcome";
@@ -30,6 +31,7 @@ const App = () => {
         ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/feedback" element={<Feedback />}></Route>
       </Routes>
     </div>
   );

@@ -17,6 +17,13 @@ function SendInput() {
   const {currentUser} = useContext(AuthContext);
   const {data} = useContext(ChatContext);
 
+  const handleKey = (event) => {
+
+    event.code === "Enter" &&  handleSend();
+    event.code === 13 &&  handleSend();
+   
+  };
+
   const handleSend = async () => {
     if(text === ""){
       return
@@ -68,9 +75,13 @@ else {
     text,
   },
   [data.chatId + ".date"]:serverTimestamp(),
+  // [data.chatId + ".online"]:serverTimestamp(),
  }) ;
-  setText("");
-  setImg(null);
+
+
+
+
+  
   
   await updateDoc(doc(db,"userChats",data.user.uid),{
     [data.chatId + ".lastMesaage"]:{
@@ -83,7 +94,7 @@ else {
 };
 
 if(Object.keys( data.user).length === 0){
-  return (<div className="text-white text-2xl text-center pb-2">{currentUser.displayName}</div>)
+  return (<div className="text-violet-500 text-2xl text-center pb-2">A0.1|Beta Version</div>)
 }
 
   return (
@@ -96,17 +107,17 @@ if(Object.keys( data.user).length === 0){
         <input onChange={event=>{
          
           setText(event.target.value)}}
-
+          onKeyDown={handleKey}
           value = {text}
           type="text"
           className=" w-[70%] h-full border-t-0 px-3  py-2  bottom-0  border-b-0 placeholder:italic  "
           placeholder="Type a Message  "
         />
 
-         
-        <div onClick={ handleSend } className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-green-500 hover:scale-105 text-white flex items-center justify-center">
+
+        <button  onClick={ handleSend }  className="w-10 h-10 lg:w-9 lg:h-9 rounded-full bg-green-500 hover:scale-105 text-white flex items-center justify-center">
           <IoIosSend className="lg:text-xl text-3xl " />
-        </div>
+        </button>
       </div>
       </div>
   );

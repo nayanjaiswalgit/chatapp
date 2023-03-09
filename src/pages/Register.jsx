@@ -11,14 +11,18 @@ import { auth, storage, db } from "../firebase";
 import addavatar from "../img/addavatar.png";
 import google from ".././img/Google.png";
 import {  doc, getDoc, setDoc } from "firebase/firestore";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Register() {
   const provider = new GoogleAuthProvider();
   const [err, setErr] = useState(false);
+  
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const singwithgoogle = async () => {
     try {
+      setLoading(true);
       const result = await signInWithPopup(auth, provider);
     
 
@@ -42,7 +46,7 @@ function Register() {
         
    
 
-      
+      setLoading(false);
       navigate("/home");
 
 
@@ -50,35 +54,36 @@ function Register() {
     catch (error) {
 
       setErr(true);
+      setLoading(false);
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const displayName = event.target[0].value;
-    const email = event.target[1].value;
-    const password = event.target[2].value;
-    const file = event.target[3].files[0];
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const displayName = e.target[0].value;
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    const file = e.target[3].files[0];
 
     try {
-
+      //Create user
+      setLoading(true);
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      const storageRef = ref(storage, displayName);
+      //Create a unique image name
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${displayName + date}`);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        "state_changed",
-        (error) => {
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
+            //Update profile
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
             });
+            //create user on firestore
             await setDoc(doc(db, "user", res.user.uid), {
               uid: res.user.uid,
               displayName,
@@ -86,13 +91,20 @@ function Register() {
               photoURL: downloadURL,
             });
 
+            //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
+            
             navigate("/home");
-          });
-        }
-      );
+          } catch (err) {
+            console.log(err);
+            setErr(true);
+            setLoading(false);
+          }
+        });
+      });
     } catch (err) {
       setErr(true);
+      setLoading(false);
     }
   };
 
@@ -111,11 +123,21 @@ function Register() {
         <input type="text" placeholder="Display Name" />
         <input type="email" placeholder="Email" />
         <input type="password" placeholder="Password" />
-        <input className="hidden" type="file" id="file" />
-        <label htmlFor="file" className="flex justify-start items-center">
+        <input accept="image/*" className="hidden" type="file" id="file" />
+       
+       <ClipLoader
+        color={"green"}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        loading = {loading}
+        className=' mx-auto'
+      />
+         { !loading && <div>
+        <label  htmlFor="file" className="flex justify-start items-center">
           <img src={addavatar} className="w-8 opacity-60" alt="" />
           <p className="text-violet-300 px-5"> Add an avator</p>
         </label>
+      </div>}
 
         <button className="bg-violet-700 hover:bg-violet-900  p-2 text-white rounded-md ">
           Sign up

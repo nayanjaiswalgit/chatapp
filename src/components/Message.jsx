@@ -37,12 +37,16 @@ function Message() {
 
  const ref = useRef();
  useEffect(()=>{
-   ref.current?.scrollIntoView({behaviour:"smoth"});
+  
+   ref.current?.scrollTo({
+    top: 10000,
+    behavior: "smooth",
+  });
  },[messages]);
 
 
 
- const show = !messages ? (<div className=" absolute  bg-white w-full h-[100%] flex justify-center items-center flex-col ">
+ const show = !messages ? (<div  className=" absolute  bg-white w-full h-[100%] flex justify-center items-center flex-col ">
   <img src={NoChat} alt="NoChat" className="w-40" />
   <h1 className=" text-center text-violet-900 text-2xl">No Conversation yet</h1>
  
@@ -62,7 +66,7 @@ function Message() {
    </div>)
   }
   return (
-    <div  className='relative h-[80%] lg:h-[85%] pb-1  w-full bg-[url(".././src/img/chat.png")] bg-cover overflow-auto    scrollbar-thin scrollbar-thumb-violet-800  scrollbar-track-violet-100 '>
+    <div ref={ref} className='relative h-[80%] lg:h-[85%] pb-1  w-full bg-[url(".././src/img/chat.png")] bg-cover overflow-auto    scrollbar-thin scrollbar-thumb-violet-800  scrollbar-track-violet-100 '>
     
       {show}
       

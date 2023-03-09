@@ -10,7 +10,7 @@ function Navbar() {
       <span className=' absolute -top-14 -left-5 text-slate-100 text-bold text-4xl' >Chit Chat</span>
       <div className='flex items-center justify-between w-[90%] gap-2'>
         <img src={currentUser.photoURL} alt="profile" className='w-7 rounded-full'  />
-        <span>   Chats</span>
+        <span className='text-xl'>   Chats</span>
        
         <button onClick={ ()=>signOut(auth)}className='rounded-md drop-shadow-sm  bg-violet-900 hover:bg-slate-900 p-2'>Logout</button>
       </div>
