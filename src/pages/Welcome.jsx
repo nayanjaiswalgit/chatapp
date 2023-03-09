@@ -2,6 +2,7 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 import logo from "../img/logo.png"
+
 const Welcome = () => {
   return (
     <div className=" font-bold border p-8  rounded-md   flex flex-col justify-around bg-white opacity-95 drop-shadow-2xl">

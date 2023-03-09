@@ -47,7 +47,8 @@ function Register() {
    
 
       setLoading(false);
-      navigate("/home");
+    
+      navigate("/home",{ replace: true });
 
 
     } 
@@ -93,8 +94,8 @@ function Register() {
 
             //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
-            
-            navigate("/home");
+         
+            navigate("/home",{ replace: true });
           } catch (err) {
             console.log(err);
             setErr(true);

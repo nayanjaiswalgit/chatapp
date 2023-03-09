@@ -5,14 +5,16 @@ import {  GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from
 import { auth, db } from "../firebase";
 import { doc, getDoc } from 'firebase/firestore';
 import { ClipLoader } from 'react-spinners';
+
 let showerror = (<p className="text-red-500 text-center rounded-lg bg-slate-100 ">
 Sign Up First</p>)
 function Login() {
+  
   const provider = new GoogleAuthProvider();
   const [err, setErr] = useState(false);
   const [loading , setLoading] = useState(false);   
   const navigate = useNavigate();
-
+  
   
   const singinwithgoogle = async () => {
     setLoading(true);
@@ -35,7 +37,8 @@ function Login() {
        
       } 
       else {
-        navigate("/home");
+ 
+        navigate("/home",{ replace: true });
       }
 
 
@@ -75,7 +78,7 @@ function Login() {
     setLoading(true);
     await signInWithEmailAndPassword(auth, email, password);
     setLoading(false);
-    navigate("/home")
+    navigate("/home",{ replace: true })
 
 
    

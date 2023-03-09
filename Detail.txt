@@ -1,0 +1,59 @@
+Tech Stack
+React.Js - ReactJS is a popular open-source JavaScript library for building user interfaces (UIs) .
+Tailwind - Tailwind is a CSS framework that provides us with single-purpose utility classes which are opinionated for the most part, and which help us design our web pages from right inside our markup or . js/
+
+
+ 	Props - "props" stands for "properties" and refers to a way of passing data between components
+	Hook - Hooks are functions that allow developers to use state and other React features.  
+		useState - useState is a hook that allows you to add state to functional components. State generally refers to data or properties that need to be tracking in an application.
+		useEffect -  The useEffect Hook allows you to perform side effects in your components. Some examples of side effects are: fetching data, directly updating the DOM, and timers.
+		createContext - Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+	 
+	specialized package - 
+			react-router-dom  - React Router DOM is a package that provides a set of higher-order components and utilities that allow you to easily manage routing and navigation in your React web applications.
+			react-icon - small library that helps you add icons
+
+Firebase - 
+	Firebase  Hosting - Firebase Hosting provides fast and secure hosting for your web app, static and dynamic content, and microservices.
+	Authentication -  Firebase Authentication to allow users to sign in to your app using one or more sign-in methods, including email address and password sign-in, and federated identity providers such as Google Sign-in 
+	Firestore Database - Cloud Firestore is a flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud.
+	Storage -  Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale
+GitHub  - GitHub, Inc. is an Internet hosting service for software development and version control using Git.
+	$ git push origin branch-namegit add . - The git add command adds a change in the working directory to the staging area 
+ 	$ git commit -m "Add existing file" - git commit takes everything from the staging area and makes a permanent snapshot of the current state of your repository that is associated with a unique identifier.
+	$ git push origin branch-name - The git push command is used to upload local repository content to a remote repository.
+
+
+* I Try make my website Responsive  so website  look the same on all devices.
+* Set up Authentication With Google and Email Id Password
+* Create User Profile on database .
+* Fetch Users
+* Start Chats With Other 
+* Users can add other people by searching by name.
+* show message timestamp
+* useState - Manage State - show loader , error
+* Context - For Auth status .
+* react-router - For navigation.
+* useEffect - For fetch data from database .
+
+
+  
+
+ createUserWithEmailAndPassword, updateProfile, signInWithPopup,GoogleAuthProvider, signOut from "firebase/auth
+		- Use for Login And SignUp With Google and emailId and Password.
+ collection - A collection contains documents . It can't directly contain raw fields with values, and it can't contain other collections.
+query,where - Search data from firebase Firestore Database .
+getDocs,getDoc, - Fetch data from firebase Firestore Database . 
+setDoc - write data to Cloud Firestore 
+serverTimestamp - Server timestamps are a valuable tool for your app that uses Firestore
+updateDoc - Update data to Cloud Firestore 
+doc - A document is a lightweight record that contains fields, which map to values.
+onSnapshot - creates a document snapshot immediately with the current contents of the single document.
+arrayUnion, Timestamp - The TIMESTAMP function returns a timestamp from a value or a pair of values
+from "firebase/firestore";
+	
+Deployed Link - https://chitchat-nayan.web.app 
+
+for feedback, bug, requestnew feature- https://chitchat-nayan.web.app/feedback
+
+This is a initial version. i will work and improve feather.

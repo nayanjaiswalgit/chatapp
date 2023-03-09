@@ -7,3 +7,4 @@
 -singup work with fake email
 09/03/2022
 - last seen showing only time even chat is older 
+-implement date with chats

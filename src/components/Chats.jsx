@@ -139,7 +139,7 @@ function Chats(props) {
               <p className="text-white opacity-80 text-xs font-light leading-7	">
                 {chat[1].lastMesaage?.text}
               </p>
-              <div className=" absolute  top-2   right-3 bg-green-500 w-5 h-5 rounded-full flex items-center justify-center drop-shadow-lg">
+              <div className=" absolute  top-2   right-3 bg-green-500 w-4 h-4 rounded-full flex items-center justify-center drop-shadow-lg">
                 {/* <p className="font-Tilefont text-white  text-sm text-bolder drop-shadow-lg">5</p> */}
               </div>
 
