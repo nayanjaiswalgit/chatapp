@@ -10,7 +10,7 @@ function Home() {
       <Sidebar ></Sidebar>
       <Chat ></Chat>
     </div>
-     <div className=' flex  lg:hidden md:hidden w-full h-full  overflow-hidden  '>
+     <div className='  flex  lg:hidden md:hidden w-full h-full   overflow-hidden    p-1 bg-slate-100'>
     {showchat && <Sidebar showchat = {showchat} setshowchat = {setshowchat} ></Sidebar>}
     {!showchat && <Chat showchat = {showchat} setshowchat = {setshowchat}  ></Chat>}
 

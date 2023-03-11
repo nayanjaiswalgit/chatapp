@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-
+import React, { useContext, useEffect, useState } from 'react'
 
 import { GoPrimitiveDot } from "react-icons/go";
 import { IoMdCall } from "react-icons/io";
@@ -7,8 +6,11 @@ import { IoIosVideocam } from "react-icons/io";
 import { BsThreeDots } from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import { ChatContext } from '../context/ChatContest';
+import { doc, onSnapshot } from 'firebase/firestore';
+import Timestamp from './Timestamp';
+import { db } from '../firebase';
 function Mainnav(props) {
-
+const [onstatus, setonstatus] = useState(false);
   const  stateChangeHandler = ()=>{
     if(!props.showchat){
     props.setshowchat(true);
@@ -16,6 +18,55 @@ function Mainnav(props) {
 }
 
   const {data} = useContext(ChatContext);
+
+ 
+  
+
+  const fatchdata = () => {
+ 
+     
+    
+    const unsub = onSnapshot(doc(db, "lastseen", data.user.uid), (doc) => {
+      setonstatus(doc.data());
+    });
+
+   
+
+
+
+
+
+
+
+    return () => {
+      unsub();
+
+    };
+        
+  };
+
+
+  useEffect(() => {
+
+    try {
+      fatchdata();
+
+ 
+    } catch (err) {
+     
+      console.log("error" + err);
+    }
+  }, [data.uid]);
+
+
+
+
+
+
+
+
+
+
 
   if(Object.keys( data.user).length === 0){
     return (<div className=" w-full lg:mx-0 md:mx-0 ">
@@ -39,11 +90,18 @@ function Mainnav(props) {
         </div>
         <div className="-mt-1">
           <h2 className="text-xl leading-7 text-white font-Tilefont ">{data.user.displayName}</h2>
-          <div className="flex">
+         {onstatus.online ? <div className="flex mx-3">
+          <GoPrimitiveDot className="text-green-500" />
            
-            <p className="text-white opacity-90 text-xs font-light text-center">
+            <p className="text-white opacity-90  text-xs font-light text-center">online
             </p>
-          </div>
+          </div> :
+          <div className="flex">
+          
+           
+            <p className="text-white opacity-90 mx-3 text-xs font-light text-center">Lastseen - {Timestamp(onstatus.LastSeen)}
+            </p>
+          </div>}
         </div>
         <div className="  flex group  md:flex justify-between relative md:gap-5 lg:gap-5 items-center">
           <p className='absolute invisible group-hover:visible text-xs left-0 -top-5  opacity-50 '>Comming Soon..</p> 

@@ -7,8 +7,12 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import {  useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import { ChatContext } from "./context/ChatContest";
 const App = () => {
   const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
@@ -17,10 +21,25 @@ const App = () => {
     return children;
   };
 
+  window.addEventListener("onbeforeunload",  async(event) => {
+    updateDoc(doc(db, "lastseen", currentUser.uid), {
+    
+      LastSeen : new Date(),
+      online : false,
+    });
+
+    
+})
+
+
+ 
+
+  
   return (
     <div className="w-screen h-screen overflow-hidden flex items-center justify-center ">
       <Routes>
-        <Route path="/*" element={<Welcome />}></Route>
+      <Route path="/*" element={<Welcome />}></Route>
+        {/* <Route path="/*" element={<Welcome />}></Route> */}
         <Route
           path="/home"
           element={

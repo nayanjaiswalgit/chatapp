@@ -7,7 +7,7 @@ function Chat(props) {
 
 
   return (
-    <div className="w-full h-full relative flex flex-col">
+    <div className=" relative w-full h-full  flex flex-col">
     <Mainnav showchat = {props.showchat} setshowchat={props.setshowchat} />
     <Message></Message>
     <SendInput/>

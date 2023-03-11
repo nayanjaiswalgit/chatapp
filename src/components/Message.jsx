@@ -7,6 +7,7 @@ import Recivedmessage from "./Recivedmessage";
 import Sendmessage from "./Sendmessage";
 import NoChat from "../img/NoChat.png";
 import ClipLoader from "react-spinners/ClipLoader";
+import Messageso from "./Messageso";
 
 function Message() {
 
@@ -82,6 +83,7 @@ function Message() {
   const fetchchat = () => {
     const unSub = onSnapshot(doc(db,"chats",data.chatId),(doc)=>{
       doc.exists() && SetMesaages(doc.data().message)
+      
     })
     return ()=>{
       unSub();
@@ -113,10 +115,9 @@ function Message() {
   <h1 className=" text-center text-violet-900 text-2xl">No Conversation yet</h1>
  </div>):
  
- ( messages.map((m)=>(
-  (m.senderId === currentUser.uid)?( dateupdate === Timestamp(m.date) ?  <Sendmessage   message={m} key={m.id}>{dateupdate=Timestamp(m.date)}</Sendmessage> : <><div key={m.id} className="text-s text-center"><span className="bg-slate-200 p-2 rounded-lg">{dateupdate=Timestamp(m.date)}</span></div><Sendmessage   message={m} key={m.id}/></> 
- ):(dateupdate === Timestamp(m.date) ? <Recivedmessage message={m} key={m.id}>{dateupdate=Timestamp(m.date)}</Recivedmessage> :<> <div key={m.id} className="text-s text-center"><span className="bg-slate-200 p-2 rounded-lg">{dateupdate=Timestamp(m.date)}</span></div><Recivedmessage message={m} key={m.id}/></>) ),()=>{dateupdate='' }
-)); 
+ (  messages.map((m) => (
+  <Messageso message={m} key={m.id} />
+))); 
 
 
     if(Object.keys( data.user).length === 0){
@@ -131,11 +132,13 @@ function Message() {
 
   
   return (
-    <div ref={ref} className=' h-[80%] lg:h-[85%] pb-1  w-full bg-[url(".././src/img/chat.png")] bg-cover overflow-auto    scrollbar-thin scrollbar-thumb-violet-800  scrollbar-track-violet-100 '>
-
-        
-      {show}
+    <div ref={ref} className=' relative h-full pb-2 w-full bg-[url(".././src/img/chat.png")] bg-cover overflow-auto    scrollbar-thin scrollbar-thumb-violet-800  scrollbar-track-violet-100 '>
       
+      
+      {show}
+    
+        
+     
       </div>
   );
 }

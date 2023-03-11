@@ -10,7 +10,7 @@ import {
 import { auth, storage, db } from "../firebase";
 import addavatar from "../img/addavatar.png";
 import google from ".././img/Google.png";
-import {  doc, getDoc, setDoc } from "firebase/firestore";
+import {  doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function Register() {
@@ -37,12 +37,21 @@ function Register() {
           displayName: result.user.displayName,
           email: result.user.email,
           photoURL: result.user.photoURL,
-          LastLoginTime : result.user.metadata.lastSignInTime
+          LastLoginTime : result.user.metadata.lastSignInTime,
+          LastSeen : new Date(),
+          online : false,
         });
   
   
        await setDoc(doc(db, "userChats", result.user.uid), {});
+   
       } 
+      await setDoc(doc(db, "lastseen", result.user.uid), {
+        
+        LastSeen : new Date(),
+        online : true,
+      });
+
         
    
 
@@ -94,6 +103,10 @@ function Register() {
 
             //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
+            await setDoc(doc(db, "lastseen", res.user.uid), {
+              LastSeen : res.user.metadata.lastSignInTime,
+              online : true,
+             });
          
             navigate("/home",{ replace: true });
           } catch (err) {

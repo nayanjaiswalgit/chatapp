@@ -1,11 +1,11 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContest";
 import { db } from "../firebase";
 import { FcSearch } from "react-icons/fc";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import Timestamp from "./Timestamp";
 
 function Chats(props) {
   const [chats, setChats] = useState([]);
@@ -17,54 +17,7 @@ function Chats(props) {
 
   
   
-  const Timestamp = (value) => {
 
-
-    try {
-      const chattime = value ? value.seconds*1000 : 0 ;
-      
-      var d1 = new Date(chattime);
-      var d2 = new Date();
-      
-     
-      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      
-      
-      if(d1.getMonth() === d2.getMonth()) {
-        if(d2.getDate() === d1.getDate()){
-    
-    
-         return d1.toLocaleTimeString(
-            navigator.language,
-            {
-              hour: "2-digit",
-              minute: "2-digit",
-            }
-            )
-    
-        }
-    
-        
-        else if((d2.getDate() - d1.getDate() === 1 )){
-          return  "Yesterday" 
-        }
-    
-        else if((d2.getDate() - d1.getDate() < 7 )){
-          return days[d1.getDay()]
-        }
-        else {
-          
-          return d1.toLocaleDateString();
-        }
-      }
-    }
-        
-      catch(err){
-        console.log(err);
-      }
-        
-       
-      }
   
   
   
@@ -73,20 +26,43 @@ function Chats(props) {
   
   
   const fatchdata = () => {
+ 
+     
+    
     const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
       setChats(doc.data());
     });
+
+    const unchat = onSnapshot(doc(db, "lastseen","date"), (doc) => {
+      console.log(doc.data());
+    });
+
+
+
+
+
+
     setLoading(false);
     return () => {
       unsub();
+      unchat();
     };
         
   };
 
+
   useEffect(() => {
+    setLoading(true);
     try {
-      setLoading(true);
       fatchdata();
+
+      
+  updateDoc(doc(db, "lastseen", currentUser.uid), {
+    
+    LastSeen : new Date(),
+    online : true,
+  });
+ 
  
     } catch (err) {
      
@@ -99,8 +75,8 @@ function Chats(props) {
     if (props.showchat) {
       props.setshowchat(false);
     }
-
-    dispatch({ type: "CHANGE_USER", payload: extaindchat });
+  
+    dispatch({ type: "CHANGE_USER", payload: extaindchat.userInfo });
   };
   if(Object.entries(chats).length === 0) {
     
@@ -122,7 +98,8 @@ function Chats(props) {
         .map((chat) => (
           <div
             key={chat[0]}
-            onClick={() => handleSelect(chat[1].userInfo)}
+            
+            onClick={() => handleSelect(chat[1])}
             className="px-4  py-2 my-2 w-full  h-18 relative flex gap-3 border-b-2 border-violet-500  hover:bg-violet-700 hover:rounded-lg"
           >
             <div className="flex items-center">
@@ -136,8 +113,8 @@ function Chats(props) {
               <span className="  text-white ">
                 {chat[1].userInfo.displayName}
               </span>
-              <p className="text-white opacity-80 text-xs font-light leading-7	">
-                {chat[1].lastMesaage?.text}
+              <p className="text-white opacity-80 text-xs font-light leading-5 overflow-hidden	max-h-5 ">
+                {chat[1].lastMesaage?.text.substring(0,20)} {chat[1].lastMesaage?.text.length >20 ? "..." : ""} 
               </p>
               <div className=" absolute  top-2   right-3 bg-green-500 w-4 h-4 rounded-full flex items-center justify-center drop-shadow-lg">
                 {/* <p className="font-Tilefont text-white  text-sm text-bolder drop-shadow-lg">5</p> */}
