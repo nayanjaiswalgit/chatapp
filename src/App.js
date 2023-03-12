@@ -21,15 +21,19 @@ const App = () => {
     return children;
   };
 
-  window.addEventListener("onbeforeunload",  async(event) => {
+  window.addEventListener("beforeunload", function (e) {
+
+        
     updateDoc(doc(db, "lastseen", currentUser.uid), {
     
       LastSeen : new Date(),
       online : false,
     });
-
+setTimeout(() => {
+             console.log("done")      
+}, 1000);
     
-})
+  });
 
 
  

@@ -10,7 +10,7 @@ import {
 import { auth, storage, db } from "../firebase";
 import addavatar from "../img/addavatar.png";
 import google from ".././img/Google.png";
-import {  doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {  doc, getDoc, setDoc } from "firebase/firestore";
 import ClipLoader from "react-spinners/ClipLoader";
 
 function Register() {

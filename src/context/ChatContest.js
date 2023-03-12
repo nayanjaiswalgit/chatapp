@@ -10,6 +10,7 @@ const { currentUser } = useContext(AuthContext);
   const INITIAL_STATE = {
     chatId: "null",
     user: {},
+    chat : false,
   };
   const chatReducer = (state, action) => {
     switch (action.type) {
@@ -20,7 +21,15 @@ const { currentUser } = useContext(AuthContext);
             currentUser.uid > action.payload.uid
               ? currentUser.uid + action.payload.uid
               : action.payload.uid + currentUser.uid,
+              chat : true,
         };
+        case "SHOWCHAT": 
+        return {
+          ...state,
+          chat : false ,
+
+        }
+        
       default:
         return state;
     }

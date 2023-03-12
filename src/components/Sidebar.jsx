@@ -7,10 +7,10 @@ function Sidebar(props) {
   
 
   return (
-    <div className=' lg:w-[45%] w-full  md:w-[50%] bg-violet-600 h-full  '>
+    <div className=' relative lg:w-[45%] w-full  md:w-[50%] bg-violet-600 h-full  '>
       <Navbar > </Navbar>
       <Search></Search>
-      <Chats showchat = {props.showchat} setshowchat={props.setshowchat} ></Chats>
+      <Chats  ></Chats>
       </div>
   )
 }

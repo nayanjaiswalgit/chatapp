@@ -25,6 +25,7 @@ function Login() {
 
       const docRef = doc(db, "user", result.user.uid);
       const docSnap = await getDoc(docRef);
+      
     
      
       if (!docSnap.exists()) {
@@ -77,6 +78,8 @@ function Login() {
   try{
     setLoading(true);
     await signInWithEmailAndPassword(auth, email, password);
+
+
     setLoading(false);
     navigate("/home",{ replace: true })
 

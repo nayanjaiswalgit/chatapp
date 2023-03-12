@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext} from 'react'
 
 import { Sidebar, Chat } from '../components'
+import { ChatContext } from '../context/ChatContest';
 function Home() {
+  const {data}=useContext(ChatContext);
 
-  const[showchat,setshowchat] = useState(true);
   return (
     <>
     <div className=' hidden lg:flex md:flex lg:w-[75%]  md:h-[90%] md:w-[90%]  lg:h-[80%] border-2 border-violet-900 rounded overflow-hidden  '>
       <Sidebar ></Sidebar>
       <Chat ></Chat>
     </div>
-     <div className='  flex  lg:hidden md:hidden w-full h-full   overflow-hidden    p-1 bg-slate-100'>
-    {showchat && <Sidebar showchat = {showchat} setshowchat = {setshowchat} ></Sidebar>}
-    {!showchat && <Chat showchat = {showchat} setshowchat = {setshowchat}  ></Chat>}
+     <div className='  relative flex  lg:hidden md:hidden w-full h-[98%]  overflow-hidden rounded-md m-1 my-4'>
+    {!data.chat && <Sidebar />}
+    {data.chat && <Chat />}
 
  {/*hidden lg:block md:block*/ }
      </div>

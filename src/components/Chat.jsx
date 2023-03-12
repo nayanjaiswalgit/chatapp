@@ -3,12 +3,12 @@ import SendInput from "./SendInput";
 import Message from "./Message";
 
 
-function Chat(props) {
+function Chat() {
 
 
   return (
     <div className=" relative w-full h-full  flex flex-col">
-    <Mainnav showchat = {props.showchat} setshowchat={props.setshowchat} />
+    <Mainnav  />
     <Message></Message>
     <SendInput/>
     </div>
