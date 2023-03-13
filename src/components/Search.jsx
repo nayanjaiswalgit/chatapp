@@ -95,11 +95,11 @@ function Search() {
         
       
 
-        console.log("Step1");
+
 
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-     console.log("Step1");
+
       if (!res.exists()) {
         await setDoc(doc (db, "chats", combinedId), { messages: [] });
         
@@ -116,7 +116,6 @@ function Search() {
         //     }
         //   }
 
-        console.log("Step2");
         await updateDoc(doc(db, "userChats", currentUser.uid), {
          
           [combinedId + ".userInfo"]: {
@@ -127,7 +126,7 @@ function Search() {
           [combinedId + ".date"]: serverTimestamp(),
         });
        
-        console.log("Step3");
+
 
         await updateDoc(doc(db, "userChats", user.uid), {
           [combinedId + ".userInfo"]: {
@@ -139,7 +138,7 @@ function Search() {
         });
       }
 
-      console.log("Step4");
+  
     } catch (err) {
       setLoading(false); 
       console.log(err);

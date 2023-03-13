@@ -1,10 +1,11 @@
 import Mainnav from "./Mainnav";
 import SendInput from "./SendInput";
 import Message from "./Message";
+import { memo } from "react";
 
 
-function Chat() {
 
+const Chat =  ()=> {
 
   return (
     <div className=" relative w-full h-full  flex flex-col">

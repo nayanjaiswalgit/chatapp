@@ -34,7 +34,7 @@ function Chats() {
   useEffect(() => {
     setLoading(true);
     try {
-      fatchdata();
+      currentUser && fatchdata();
     } catch (err) {
       console.log("error" + err);
     }

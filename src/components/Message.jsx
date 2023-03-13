@@ -8,7 +8,7 @@ import NoChat from "../img/NoChat.png";
 
 import Messageso from "./Messageso";
 import {Timestamp2} from "./Timestamp";
-
+import { v4 as uuid } from "uuid";
 function Message() {
 
 
@@ -47,7 +47,7 @@ function Message() {
     top: 10000,
     behavior: "smooth",
   });
- },[messages]);
+ },[messages,data.chatId]);
 
 
  let dateupdate ;
@@ -58,8 +58,8 @@ function Message() {
  
  (  messages.map((m) => (
 Timestamp2(m.date) === dateupdate ? <Messageso message={m} key={m.id} /> :
-<><div className="w-full text-center ">
-  <span className="bg-slate-300 border-2 border-white px-3   py-1 rounded-full">{Timestamp2(m.date)}</span> </div><Messageso message={m} key={m.id} >{dateupdate=Timestamp2(m.date)} </Messageso></>
+<><div className="w-full text-center " key={m.id}>
+  <span className="bg-slate-300 border-2 border-white px-3   py-1 rounded-full">{Timestamp2(m.date)}</span> </div><Messageso message={m}  >{dateupdate=Timestamp2(m.date)} </Messageso></>
 
 ))); 
 

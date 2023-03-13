@@ -30,7 +30,7 @@ const App = () => {
       online : false,
     });
 setTimeout(() => {
-             console.log("done")      
+       
 }, 1000);
     
   });
@@ -41,6 +41,7 @@ setTimeout(() => {
   
   return (
     <div className="w-screen h-screen overflow-hidden flex items-center justify-center ">
+         { !navigator.onLine && <div className=" absolute w-[40%] top-10 z-50   bg-red-600 rounded-xl p-2 text-white"> <p className=" text-center">No Internet! </p> </div>}
       <Routes>
       <Route path="/*" element={<Welcome />}></Route>
         {/* <Route path="/*" element={<Welcome />}></Route> */}

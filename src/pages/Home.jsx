@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { memo, useContext} from 'react'
 
 import { Sidebar, Chat } from '../components'
 import { ChatContext } from '../context/ChatContest';
@@ -12,8 +12,8 @@ function Home() {
       <Chat ></Chat>
     </div>
      <div className='  relative flex  lg:hidden md:hidden w-full h-[98%]  overflow-hidden rounded-md m-1 my-4'>
-    {!data.chat && <Sidebar />}
-    {data.chat && <Chat />}
+ {   data.chat ?  <Chat /> :  <Sidebar /> }
+
 
  {/*hidden lg:block md:block*/ }
      </div>

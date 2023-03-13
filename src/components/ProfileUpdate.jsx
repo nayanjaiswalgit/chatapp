@@ -24,7 +24,7 @@ const ProfileUpdate = ({ currentUser, SetProfilepopup }) => {
       //Create user
       setLoading(true);
 
-      console.log(currentUser);
+
       //Create a unique image name
       const date = new Date();
       const storageRef = ref(storage, `${displayName + date}`);
@@ -33,7 +33,7 @@ const ProfileUpdate = ({ currentUser, SetProfilepopup }) => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           try {
             //Update profile
-            console.log(downloadURL);
+           
             displayName && await updateDoc(doc(db, "lastseen", currentUser.uid), {
               displayName,
             });
@@ -68,7 +68,7 @@ e.target[1].value="";
   e.target[3].value="";
    e.target[4].files[0] ="";
   };
-console.log(currentUser);
+
   return (
     <div className="p-2  absolute w-[90%] top-16 h-[82vh] lg:h-[65vh] flex-col md:h-[75vh] z-10  rounded-2xl flex justify-center items-center bg-slate-300 ">
     { err && <div className=" absolute w-[90%] top-5 z-50   bg-red-600 rounded-xl p-2"> <p className=" text-center">Somthing Went Wrong ! </p> </div>}
@@ -104,7 +104,7 @@ console.log(currentUser);
           </label>
         </div>
 
-        <label for="text" className=" w-48 py-1 opacity-90 align-self">
+        <label htmlFor="text" className=" w-48 py-1 opacity-90 align-self">
           Name
         </label>
         <input
@@ -113,7 +113,7 @@ console.log(currentUser);
           placeholder={currentUser.displayName}
           className="pl-4 w-56 rounded-xl p-1 placeholder-black px-2 bg-slate-100 "
         />
-        <label for="about " className=" w-48 py-1 opacity-90 align-self">
+        <label htmlFor="about " className=" w-48 py-1 opacity-90 align-self">
           About
         </label>
         <input
@@ -122,7 +122,7 @@ console.log(currentUser);
        
           className="pl-4  w-56 rounded-xl p-1 placeholder-black px-2  "
         />
-        <label for="phone " className=" w-48 py-1 opacity-90 align-self">
+        <label htmlFor="phone " className=" w-48 py-1 opacity-90 align-self">
           Phone
         </label>
         <input
@@ -131,7 +131,7 @@ console.log(currentUser);
           placeholder={currentUser.phoneNo}
           className="pl-4  w-56 rounded-xl p-1 placeholder-black px-2   "
         />
-        <label for="textarea " className=" w-48 py-1 opacity-90 align-self">
+        <label htmlFor  ="textarea " className=" w-48 py-1 opacity-90 align-self">
           Bio
         </label>
         <textarea

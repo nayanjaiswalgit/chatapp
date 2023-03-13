@@ -5,7 +5,7 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { IoMdAttach } from "react-icons/io";
 import { IoIosSend } from "react-icons/io";
 import { AuthContext } from "../context/AuthContext";
@@ -31,13 +31,12 @@ function SendInput() {
     if (e.target.files && e.target.files.length > 0) {
       setImg(e.target.files[0]);
     }
-    console.log(img);
   };
 
-  const handleKey = (event) => {
-    event.code === "Enter" && handleSend() && clearinput();
-    event.code === 13 && handleSend() && clearinput();
-  };
+  // const handleKey = (event) => {
+  //   event.code === "Enter" && handleSend() && clearinput();
+  //   event.code === 13 && handleSend() && clearinput();
+  // };
 
   const clearinput = (event) => {
     event.preventDefault();
@@ -103,7 +102,7 @@ function SendInput() {
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
-  
+
     setLoading(false);
     setText("");
     setImg(null);
@@ -120,18 +119,20 @@ function SendInput() {
 
   return (
     <div className="relative w-full lg:h-14  h-16  pb-2 p-1 border-grey-300 border-t-2 border-violet-400  bg-white  ">
-      <div className="flex items-center justify-evenly h-full  relative">
+      <div className="  flex items-center justify-evenly h-full  relative">
+        <div >
         <input
           type="file"
           id="attachment"
           name="attachment"
-          className="hidden"
+          className="lg:hidden md:hidden opacity-5 absolute"
           onChange={imgsend}
         />
-        <label htmlFor="attachment" className="hover:scale-105">
+        <label htmlFor="attachment" className="hover:scale-105" >
 
-          <IoMdAttach className="lg:text-2xl text-3xl" />
+          <IoMdAttach className="lg:text-2xl text-3xl  lg:visible md:visible "  />
         </label>
+        </div>
         <form
           onSubmit={clearinput}
           className="flex items-center justify-evenly h-full w-full "
@@ -143,6 +144,7 @@ function SendInput() {
             type="text"
             className=" w-[70%] h-full border-t-0 px-3  py-2  bottom-0  border-b-0 placeholder:italic  "
             placeholder="Type a Message  "
+      
           />
           <ClipLoader
             color={"green"}
@@ -209,4 +211,4 @@ function SendInput() {
   );
 }
 
-export default SendInput;
+export default memo(SendInput);

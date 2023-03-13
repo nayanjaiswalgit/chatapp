@@ -74,7 +74,7 @@ function SendInput() {
 
   const clearinput = (event) => {
     event.preventDefault();
-    console.log(event.target[0].value)
+    
   };
 
   const handleSend = async (event) => {
@@ -83,7 +83,7 @@ function SendInput() {
     }
  
     if (state.img ) {
-      console.log("ing");
+  
       dispatch({ type: "SEND" });
       const storageRef = ref(storage, uuid());
 

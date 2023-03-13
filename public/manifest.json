@@ -1,25 +1,26 @@
 {
+  "name": "Chit-Chat Messaing App",
   "short_name": "Chit-Chat",
-  "name": "Instant message application",
   "icons": [
     {
-      "src": "logo.avif",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "favicon.ico",
+      "sizes": "64x64",
       "type": "image/x-icon"
     },
     {
-      "src": "logo.avif",
+      "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo.avif",
+      "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": "https://chitchat-nayan.web.app/",
-  "display": "standalone",
-  "theme_color": "  ",
-  "background_color": "#ffffff"
+  "start_url": "/home",
+  "scope": "/",
+  "theme_color": "#5b21b6",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }

@@ -74,7 +74,7 @@ const [Done, setDone] = useState(false);
     <label for="css">Sumbit a New bug</label></div>
     <div className='flex items-center gap-2'>
     <input type="radio" id="html" name="fav_language" value="For a new feature request"/>
-    <label for="html">For a New feature request</label></div>
+    <label htmlFor="html">For a New feature request</label></div>
     <textarea placeholder='Description Or Suggestion Or Problem' className='outline-none py-2' required/>
   
 

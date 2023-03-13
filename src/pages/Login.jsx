@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import google from '.././img/Google.png'
 import {  GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { ClipLoader } from 'react-spinners';
 
 let showerror = (<p className="text-red-500 text-center rounded-lg bg-slate-100 ">
@@ -38,7 +38,13 @@ function Login() {
        
       } 
       else {
- 
+        await updateDoc(doc(db, "lastseen", result.user.uid), {
+          
+          LastSeen : new Date(),
+          online : true,
+        });
+  
+          
         navigate("/home",{ replace: true });
       }
 

@@ -22,7 +22,7 @@ function UserProfile({userdata,setshowuser}) {
           onClick={()=>setshowuser(false)}
           className="   absolute top-0 right-2 bg-slate-600 bg-opacity-20 text-2xl  text-white rounded-full my-2 "
         />
-        <img className='w-[50%] lg:w-[70%] rounded-lg' src={userdata.photoURL} />
+        <img className='w-[50%] lg:w-[70%] rounded-lg' src={userdata.photoURL}  alt="largephoto"/>
 
       <div className=' md:text-xl flex flex-col  m-3 '>
         <p className='py-1  mt-2'>{userdata.displayName} </p>

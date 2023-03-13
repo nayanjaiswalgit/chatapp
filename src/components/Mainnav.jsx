@@ -51,8 +51,8 @@ const [showuser, setshowuser] = useState(false);
   useEffect(() => {
 
     try {
-    fatchdata();
-      console.log("Hello");
+      data.user && fatchdata();
+  
  
     } catch (err) {
      
