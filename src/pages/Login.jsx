@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import google from '.././img/Google.png'
-import {  GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {  GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { ClipLoader } from 'react-spinners';
@@ -21,7 +21,7 @@ function Login() {
     try {
       const result = await signInWithPopup(auth, provider);
     
-      
+
 
       const docRef = doc(db, "user", result.user.uid);
       const docSnap = await getDoc(docRef);
@@ -31,21 +31,21 @@ function Login() {
       if (!docSnap.exists()) {
         setErr(true);
         setTimeout(() => {
-        
+          signOut(auth);
           navigate("/register");
         }, 5000);
        
        
       } 
       else {
-        await updateDoc(doc(db, "lastseen", result.user.uid), {
-          
+        navigate("/home",{ replace: true });
+        await updateDoc(doc(db, "userData", result.user.uid), {
           LastSeen : new Date(),
           online : true,
         });
   
           
-        navigate("/home",{ replace: true });
+       
       }
 
 
@@ -83,11 +83,15 @@ function Login() {
     const password = event.target[1].value;
   try{
     setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password);
+    const result = await signInWithEmailAndPassword(auth, email, password);
 
-
-    setLoading(false);
+    await updateDoc(doc(db, "userData", result.user.uid), {
+      LastSeen : new Date(),
+      online : true,
+    });
     navigate("/home",{ replace: true })
+    setLoading(false);
+
 
 
    
@@ -99,7 +103,6 @@ function Login() {
 }
 
   };
-
 
   return (
     <div className="p-8 rounded-md bg-white  font-mulish ">

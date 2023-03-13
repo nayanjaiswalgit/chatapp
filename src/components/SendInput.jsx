@@ -1,7 +1,6 @@
 import {
   arrayUnion,
   doc,
-  serverTimestamp,
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -17,8 +16,9 @@ import { db, storage } from "../firebase";
 import { RiCloseLine } from "react-icons/ri";
 
 import ClipLoader from "react-spinners/ClipLoader";
-
+let countmessage = 0;
 function SendInput() {
+  
   const [text, setText] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [imgpopup, setImgpopup] = useState(false);
@@ -85,12 +85,13 @@ function SendInput() {
         }),
       });
     }
- 
+    countmessage +=1;
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMesaage"]: {
         text,
       },
-      [data.chatId + ".date"]: serverTimestamp(),
+      [data.chatId + ".date"]: new Date(),
+     
       // [data.chatId + ".online"]:serverTimestamp(),
     });
 
@@ -100,7 +101,11 @@ function SendInput() {
       [data.chatId + ".lastMesaage"]: {
         text,
       },
-      [data.chatId + ".date"]: serverTimestamp(),
+      [data.chatId + ".date"]: new Date(),
+      [data.chatId + ".status"]: {
+        newMesaage : countmessage,
+        seen: false ,
+      }
     });
 
     setLoading(false);
@@ -125,12 +130,13 @@ function SendInput() {
           type="file"
           id="attachment"
           name="attachment"
-          className="lg:hidden md:hidden opacity-5 absolute"
+          className="lg:hidden md:hidden w-8 left-0 opacity-5 absolute z-40 top-1  "
           onChange={imgsend}
         />
+        <IoMdAttach className="lg:text-2xl text-3xl top-1 left-1 absolute lg:invisible md:invisible "  />
         <label htmlFor="attachment" className="hover:scale-105" >
 
-          <IoMdAttach className="lg:text-2xl text-3xl  lg:visible md:visible "  />
+          <IoMdAttach className="lg:text-2xl text-3xl  z-20 lg:visible md:visible invisible"  />
         </label>
         </div>
         <form

@@ -3,12 +3,12 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { ChatContext } from "../context/ChatContest";
 import { db } from "../firebase";
-
 import NoChat from "../img/NoChat.png";
 
 import Messageso from "./Messageso";
 import {Timestamp2} from "./Timestamp";
 import { v4 as uuid } from "uuid";
+
 function Message() {
 
 
@@ -20,12 +20,15 @@ function Message() {
   
   
 
-  
   const fetchchat = () => {
     const unSub = onSnapshot(doc(db,"chats",data.chatId),(doc)=>{
-      doc.exists() && SetMesaages(doc.data().message)
+      doc.exists() && SetMesaages(doc.data().message);
       
+     
+    
     })
+    
+
     return ()=>{
       unSub();
     }
@@ -57,9 +60,9 @@ function Message() {
  </div>):
  
  (  messages.map((m) => (
-Timestamp2(m.date) === dateupdate ? <Messageso message={m} key={m.id} /> :
-<><div className="w-full text-center " key={m.id}>
-  <span className="bg-slate-300 border-2 border-white px-3   py-1 rounded-full">{Timestamp2(m.date)}</span> </div><Messageso message={m}  >{dateupdate=Timestamp2(m.date)} </Messageso></>
+Timestamp2(m.date) === dateupdate ? <Messageso  message={m} key={m.id} /> :
+<><div className="w-full text-center " key={uuid()}>
+  <span className="bg-slate-300 border-2 border-white px-3   py-1 rounded-full">{Timestamp2(m.date)}</span> </div><Messageso   message={m} key={m.id}  >{dateupdate=Timestamp2(m.date)} </Messageso></>
 
 ))); 
 

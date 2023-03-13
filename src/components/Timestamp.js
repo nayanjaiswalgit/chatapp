@@ -30,7 +30,7 @@ const Timestamp = (value) => {
 
 
     try {
-      const chattime = value ? value.seconds*1000 : 0 ;
+      const chattime = value ? value*1000: 0 ;
       
       var d1 = new Date(chattime);
       var d2 = new Date();
@@ -77,11 +77,12 @@ const Timestamp = (value) => {
   
      export const Timestamp2 = (value) => {
 
-
+      
         try {
-          const chattime = value ? value.seconds*1000 : 0 ;
+          const chattime = value.seconds ? value.seconds*1000 : 0 ;
           
           var d1 = new Date(chattime);
+    
           var d2 = new Date();
           
          

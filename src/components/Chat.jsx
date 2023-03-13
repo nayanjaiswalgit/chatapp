@@ -1,7 +1,7 @@
 import Mainnav from "./Mainnav";
 import SendInput from "./SendInput";
 import Message from "./Message";
-import { memo } from "react";
+
 
 
 

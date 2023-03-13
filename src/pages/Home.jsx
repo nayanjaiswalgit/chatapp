@@ -1,9 +1,10 @@
-import React, { memo, useContext} from 'react'
-
+import React, { useContext} from 'react'
+import {Navigate, useNavigate} from 'react-router-dom'
 import { Sidebar, Chat } from '../components'
 import { ChatContext } from '../context/ChatContest';
 function Home() {
   const {data}=useContext(ChatContext);
+ 
 
   return (
     <>
@@ -11,7 +12,7 @@ function Home() {
       <Sidebar ></Sidebar>
       <Chat ></Chat>
     </div>
-     <div className='  relative flex  lg:hidden md:hidden w-full h-[98%]  overflow-hidden rounded-md m-1 my-4'>
+     <div className='  relative flex  lg:hidden md:hidden w-full h-[99%]  overflow-hidden rounded-md m-1 my-4 '>
  {   data.chat ?  <Chat /> :  <Sidebar /> }
 
 

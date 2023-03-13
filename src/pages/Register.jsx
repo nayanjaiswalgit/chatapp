@@ -30,7 +30,7 @@ function Register() {
       const docRef = doc(db, "user", result.user.uid);
       const docSnap = await getDoc(docRef);
     
-     
+      console.log(result);
       if (!docSnap.exists()) {
         await setDoc(doc(db, "user", result.user.uid), {
           uid: result.user.uid,
@@ -38,15 +38,16 @@ function Register() {
           email: result.user.email,
           photoURL: result.user.photoURL,
           LastLoginTime : result.user.metadata.lastSignInTime,
-          LastSeen : new Date(),
-          online : false,
+          phoneNumber : result.user.phoneNumber ? parseFloat(result.user.phoneNumber) : result.user.uid,
+          displayNamesplit : (result.user.displayName.toLowerCase().replace(/\s/g, '')),
         });
   
   
        await setDoc(doc(db, "userChats", result.user.uid), {});
+       await setDoc(doc(db, "userData", result.user.uid), {});
    
       } 
-      await updateDoc(doc(db, "lastseen", result.user.uid), {
+      await updateDoc(doc(db, "userData", result.user.uid), {
         
         LastSeen : new Date(),
         online : true,
@@ -94,23 +95,33 @@ function Register() {
               photoURL: downloadURL,
             });
             //create user on firestore
+          
+        
+        
+         
+         
             await setDoc(doc(db, "user", res.user.uid), {
               uid: res.user.uid,
               displayName,
               email,
               photoURL: downloadURL,
+              LastLoginTime :new Date(),
+              phoneNumber : res.user.phoneNumber ? parseFloat(res.user.phoneNumber) : res.user.uid,
+              displayNamesplit :( displayName.toLowerCase().replace(/\s/g, '')),
+            });
+         
+            await setDoc(doc(db, "userData", res.user.uid), {
+              LastSeen : new Date(),
+              online : false,
             });
 
             //create empty user chats on firestore
+            
             await setDoc(doc(db, "userChats", res.user.uid), {});
-            await setDoc(doc(db, "lastseen", res.user.uid), {
-              LastSeen : res.user.metadata.lastSignInTime,
-              online : true,
-             });
-         
+
             navigate("/home",{ replace: true });
           } catch (err) {
-            console.log(err);
+    
             setErr(true);
             setLoading(false);
           }
@@ -134,10 +145,10 @@ function Register() {
             Something went Wrong ...
           </p>
         )}
-        <input type="text" placeholder="Display Name" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <input accept="image/*" className="hidden" type="file" id="file" />
+        <input type="text" placeholder="Display Name" required/>
+        <input type="email" placeholder="Email" required/>
+        <input type="password" placeholder="Password" required/>
+        <input accept="image/*" className="hidden" type="file" id="file" required />
        
        <ClipLoader
         color={"green"}
@@ -166,7 +177,7 @@ function Register() {
       </button>
 
       <p className="text-center pt-2">
-        {" "}
+   
         You do have an account?{" "}
         <NavLink className=" text-violet-800 " to={`/login`}>
           login

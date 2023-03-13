@@ -34,16 +34,18 @@ const ProfileUpdate = ({ currentUser, SetProfilepopup }) => {
           try {
             //Update profile
            
-            displayName && await updateDoc(doc(db, "lastseen", currentUser.uid), {
+            displayName && await updateDoc(doc(db, "userData", currentUser.uid), {
               displayName,
             });
 
-             await updateDoc(doc(db, "lastseen", currentUser.uid), {
+             await updateDoc(doc(db, "userData", currentUser.uid), {
               photoURL: downloadURL,
             });
-            Phone && await updateDoc(doc(db, "lastseen", currentUser.uid), { Phone });
-            about && await updateDoc(doc(db, "lastseen", currentUser.uid), { about });
-            Bio &&  await updateDoc(doc(db, "lastseen", currentUser.uid), { Bio });
+            Phone && await updateDoc(doc(db, "userData", currentUser.uid), { Phone });
+            Phone && await updateDoc(doc(db, "user", currentUser.uid), { phoneNumber: parseFloat(Phone) });
+            about && await updateDoc(doc(db, "userData", currentUser.uid), { about });
+            Bio &&  await updateDoc(doc(db, "userData", currentUser.uid), { Bio });
+            
             setLoading(false);
             setdone(true);
             setTimeout(() => {
@@ -66,7 +68,7 @@ const ProfileUpdate = ({ currentUser, SetProfilepopup }) => {
 e.target[1].value="";
      e.target[2].value="";
   e.target[3].value="";
-   e.target[4].files[0] ="";
+   e.target[4].files[0] =null;
   };
 
   return (
@@ -89,18 +91,18 @@ e.target[1].value="";
         className='absolute '
         size={100}
       />
-        <div className="relative lg:w-5">
+        <div className="relative lg:w-5  " >
           <img
             src={currentUser.photoURL}
             alt="profile"
-            className="relative w-30 rounded-full mb-0"
+            className="relative w-20 rounded-full"
           />
           <label
             htmlFor="file"
             className="absolute -bottom-4 -right-4 group flex justify-center items-center bg-green-600  rounded-full p-1 m-2 text-white"
           >
             <AiOutlineCamera className="text-4xl p-1" />
-            <p className="hidden p-1 "> Upload</p>
+            
           </label>
         </div>
 

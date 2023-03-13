@@ -9,8 +9,8 @@ const Welcome = () => {
       <h1 className="text-center text-2xl text-violet-800">Welcome To Chit Chat</h1>
       <img src={logo} alt="logo" width='150px' className="inline-block self-center" />
       <div className=" flex justify-around items-center">
-      <NavLink className="border p-2 w-28 text-white text-center bg-violet-500" to={`/login`}>Login</NavLink>
-      <NavLink className="border p-2  w-28 text-white text-center  bg-violet-500" to={`/register`}>Register</NavLink>
+      <NavLink className="border p-2 w-28 text-white text-center bg-violet-500" to={`/home`}>Login</NavLink>
+      <NavLink className="border p-2  w-28 text-white text-center  bg-violet-500" to={`/home`}>Register</NavLink>
       </div>
     </div>
   );

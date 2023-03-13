@@ -32,6 +32,8 @@ body {
 
 
   background-color: rgb(146, 92, 239);
+  background: rgb(96,42,189);
+  background: linear-gradient(283deg, rgba(96,42,189,1) 0%, rgba(135,79,232,1) 84%, rgba(109,53,204,1) 100%);
 
 }
 

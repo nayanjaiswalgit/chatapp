@@ -12,7 +12,7 @@ function Navbar() {
 
   const singouthandler = async () => {
     try {
-      await updateDoc(doc(db, "lastseen", currentUser.uid), {
+      await updateDoc(doc(db, "userData", currentUser.uid), {
         LastSeen: new Date(),
         online: false,
       });
