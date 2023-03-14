@@ -5,13 +5,17 @@ import { AuthContext } from "../context/AuthContext";
 import { BsCheckAll } from 'react-icons/bs';
 
 
+
+
 const Messageso = ({ message }) => {
+
   const { currentUser } = useContext(AuthContext);
 
   const ref = useRef();
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
+
   }, [message]);
 
 

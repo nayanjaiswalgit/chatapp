@@ -8,18 +8,18 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Timestamp from "./Timestamp";
 
 function Chats() {
-  const [chats, setChats] = useState({});
+  const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
+  const { dispatch,setShowBackButton } = useContext(ChatContext);
 
-  const fatchdata = () => {
+  const fatchdata = async() => {
     const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
       setChats(doc.data());
     });
 
-    updateDoc(doc(db, "userData", currentUser.uid), {
+    await updateDoc(doc(db, "userData", currentUser.uid), {
       LastSeen: new Date(),
       online: true,
     });
@@ -35,13 +35,14 @@ function Chats() {
     setLoading(true);
     try {
       currentUser.uid && fatchdata();
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log("error" + err);
     }
   }, [currentUser.uid]);
 
 
-  
   const handleSelect = async (extaindchat) => {
   
     const combinedId =
@@ -50,7 +51,7 @@ function Chats() {
         : extaindchat.userInfo.uid + currentUser.uid;
 
 
-        
+        setShowBackButton(true);
 
     dispatch({ type: "CHANGE_USER", payload: extaindchat?.userInfo });
     
@@ -64,7 +65,7 @@ function Chats() {
     
   };
  
-  if (Object.keys(chats).length === 0) {
+  if (chats === {} || chats === null  || chats === undefined ) {
     return (
       <div className="h-[50%] w-full text-white text-2xl  flex justify-evenly items-center flex-col  ">
         <ClipLoader

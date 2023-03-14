@@ -4,9 +4,8 @@ import Message from "./Message";
 
 
 
-
 const Chat =  ()=> {
-
+ 
   return (
     <div className=" relative w-full h-full  flex flex-col">
     <Mainnav  />

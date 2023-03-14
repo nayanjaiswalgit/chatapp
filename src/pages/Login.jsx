@@ -38,13 +38,16 @@ function Login() {
        
       } 
       else {
-        navigate("/home",{ replace: true });
+     
+
         await updateDoc(doc(db, "userData", result.user.uid), {
           LastSeen : new Date(),
           online : true,
         });
   
-          
+     
+        navigate("/home",{ replace: true });
+
        
       }
 
@@ -89,10 +92,11 @@ function Login() {
       LastSeen : new Date(),
       online : true,
     });
+    
     navigate("/home",{ replace: true })
+
     setLoading(false);
-
-
+    
 
    
 

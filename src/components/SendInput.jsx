@@ -16,9 +16,9 @@ import { db, storage } from "../firebase";
 import { RiCloseLine } from "react-icons/ri";
 
 import ClipLoader from "react-spinners/ClipLoader";
-let countmessage = 0;
+
 function SendInput() {
-  
+  let countmessage = 0;
   const [text, setText] = useState("");
   const { currentUser } = useContext(AuthContext);
   const [imgpopup, setImgpopup] = useState(false);

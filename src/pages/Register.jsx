@@ -12,7 +12,7 @@ import addavatar from "../img/addavatar.png";
 import google from ".././img/Google.png";
 import {  doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import noimg from '../img/noimg.png'
 function Register() {
   const provider = new GoogleAuthProvider();
   const [err, setErr] = useState(false);
@@ -37,7 +37,7 @@ function Register() {
           displayName: result.user.displayName,
           email: result.user.email,
           photoURL: result.user.photoURL,
-          LastLoginTime : result.user.metadata.lastSignInTime,
+          LastLoginTime : new Date(),
           phoneNumber : result.user.phoneNumber ? parseFloat(result.user.phoneNumber) : result.user.uid,
           displayNamesplit : (result.user.displayName.toLowerCase().replace(/\s/g, '')),
         });
@@ -58,8 +58,8 @@ function Register() {
 
       setLoading(false);
     
+    
       navigate("/home",{ replace: true });
-
 
     } 
     catch (error) {
@@ -75,7 +75,7 @@ function Register() {
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const file = e.target[3].files[0];
+    const file = e.target[3].files[0] ? e.target[3].files[0]: noimg;
 
     try {
       //Create user
@@ -98,7 +98,7 @@ function Register() {
           
         
         
-         
+           
          
             await setDoc(doc(db, "user", res.user.uid), {
               uid: res.user.uid,
@@ -118,7 +118,7 @@ function Register() {
             //create empty user chats on firestore
             
             await setDoc(doc(db, "userChats", res.user.uid), {});
-
+    
             navigate("/home",{ replace: true });
           } catch (err) {
     

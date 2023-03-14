@@ -9,12 +9,13 @@ import Messageso from "./Messageso";
 import {Timestamp2} from "./Timestamp";
 import { v4 as uuid } from "uuid";
 
+
 function Message() {
 
 
   const {data}=useContext(ChatContext);
   const [messages, SetMesaages] = useState([]);
-
+ 
 
   
   
@@ -60,9 +61,9 @@ function Message() {
  </div>):
  
  (  messages.map((m) => (
-Timestamp2(m.date) === dateupdate ? <Messageso  message={m} key={m.id} /> :
+Timestamp2(m.date) === dateupdate ? <Messageso  message={m} key={uuid()} /> :
 <><div className="w-full text-center " key={uuid()}>
-  <span className="bg-slate-300 border-2 border-white px-3   py-1 rounded-full">{Timestamp2(m.date)}</span> </div><Messageso   message={m} key={m.id}  >{dateupdate=Timestamp2(m.date)} </Messageso></>
+  <span key={uuid()} className="bg-slate-300 border-2 border-white px-3   py-1 rounded-full">{Timestamp2(m.date)}</span> </div><Messageso   message={m} key={uuid()}  >{dateupdate=Timestamp2(m.date)} </Messageso></>
 
 ))); 
 
