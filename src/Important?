@@ -1,0 +1,16 @@
+Further optimization
+
+
+Use React.memo to memoize functional components and prevent unnecessary re-renders. For example, you can memoize the Message component using React.memo.
+
+Use useCallback to memoize event handlers and other functions that are passed as props to child components. For example, you can memoize the sendMessage function using useCallback in the ChatRoom component.
+
+Avoid using setState inside the render method. Instead, set the state in event handlers. For example, you can set the state in the handleChange and handleSubmit functions in the SignIn component.
+
+Use react-router-dom library for routing instead of manually rendering different components based on the URL. This can make your code cleaner and easier to maintain.
+
+Use Code-Splitting to split your application into smaller chunks that can be loaded on-demand, improving initial load times and reducing the size of your bundle.
+
+Use useEffect to fetch data and update the state of the component. For example, you can use useEffect to fetch the data from the Firebase Firestore database in the ChatRoom component.
+
+Use arrow functions inside the render methods only when necessary to prevent creating new functions on every render. For example, you can use an arrow function to pass props to the MessageInput component in the ChatRoom component.
